@@ -6,13 +6,13 @@ This is a simple page for getting a users consent from the [Consentua](https://c
 
 ## form fields
 
-- consentua-uid - Your Consentua user identifier 
+- consentua-uid - Your Consentua user identifier
 - consentua-cid - Your Consentua customer Id
 - consentua-sid - Your Consentua service Id
 
 ### test credentials
 
-```
+```config
 consentua-uid: c131d9df-0b62-43c0-b422-443d4f69ba33
 consentua-cid: 266
 consentua-sid: 105

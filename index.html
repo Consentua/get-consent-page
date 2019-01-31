@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" media="screen" href="style/main.css" />
     <script src="script/main.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
+    <!-- polyfill promises for IE -->
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
 </head>
 
 <body>
@@ -17,6 +19,11 @@
         <img src="https://consentua.com/imgs/logo/consentua-lock-pink.svg">
         <h1>Get consent</h1>
     </header>
+    <noscript>
+            For full functionality of this site it is necessary to enable JavaScript.
+            Here are the <a href="https://www.enable-javascript.com/">
+            instructions how to enable JavaScript in your web browser</a>.
+    </noscript>
     <form id="consent-form">
         <span>
             <label for="consentua-uid">consentua-uid</label>
