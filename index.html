@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Get consent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="style/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="style/main.css" />
+    <script src="script/main.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
+</head>
+
+<body>
+    <form id="consent-form">
+        <h1>Get consent</h1>
+        <span>
+            <label for="consentua-uid">consentua-uid</label>
+            <input type="text" id="consentua-uid" value="c131d9df-0b62-43c0-b422-443d4f69ba33">
+        </span>
+        <span>
+            <label for="consentua-cid">consentua-cid</label>
+            <input type="text" id="consentua-cid" value="266">
+        </span>
+        <span>
+            <label for="consentua-sid">consentua-sid</label>
+            <input type="text" id="consentua-sid" value="105">
+        </span>
+        <button type="submit" value="Submit">Get consents</button>
+    </form>
+    <div id="loading" class="hidden">Please wait...</div>
+    <section id="output" class="hidden">
+        <h2>Output</h2>
+        <span id="output-template"></span>
+        <div id="output-consents">
+            <span id="output-arr"></span>
+        </div>
+        <br>
+        <button id="rawBtn" onclick="toggleRawHidden()">show raw</button>
+        <code id="output-consents-raw" class="hidden">Nothing here yet!</code>
+    </section>
+</body>
+
+</html>
