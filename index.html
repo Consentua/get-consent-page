@@ -13,8 +13,11 @@
 </head>
 
 <body>
-    <form id="consent-form">
+    <header id="logo-title">
+        <img src="https://consentua.com/imgs/logo/consentua-lock-pink.svg">
         <h1>Get consent</h1>
+    </header>
+    <form id="consent-form">
         <span>
             <label for="consentua-uid">consentua-uid</label>
             <input type="text" id="consentua-uid" value="c131d9df-0b62-43c0-b422-443d4f69ba33">
@@ -40,6 +43,10 @@
         <button id="rawBtn" onclick="toggleRawHidden()">show raw</button>
         <code id="output-consents-raw" class="hidden">Nothing here yet!</code>
     </section>
+    <footer>
+        <a href="https://consentua.com">Consentua.com</a>
+        <a href="https://github.com/Consentua/get-consent-page">Github repo</a>
+    </footer>
 </body>
 
 </html>

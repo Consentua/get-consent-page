@@ -81,60 +81,69 @@ window.addEventListener("load", function () {
         var consentuaCID = document.getElementById('consentua-cid').value;
         var consentuaSID = document.getElementById('consentua-sid').value;
 
-        // make api reqests to get consent
-        makeRequest({
-                method: 'GET',
-                url: 'https://api.consentua.com/serviceuser/AnonGetServiceUser',
-                params: {
-                    "serviceId": consentuaSID,
-                    "identifier": consentuaUID
-                },
-                headers: {
-                    "Content-type": "application/json"
-                }
-            })
-            .then(function (res) {
-                return makeRequest({
-                        method: 'POST',
-                        url: 'https://api.consentua.com/userconsent/AnonGetConsents',
-                        params: {
-                            "ClientId": consentuaCID,
-                            "ServiceId": consentuaSID,
-                            "UserId": JSON.parse(res).UserId
-                        },
-                        headers: {
-                            "Content-type": "application/json"
-                        }
-                    })
-                    .then(function (res) {
-                        // display consents to user
-                        res = JSON.parse(res);
-                        if (res.Consent == null && res.Success) {
-                            // no consents for user yet
-                            console.warn(res)
-                            alert('no consents found for this user')
-                        } else if (res.Consent.Purposes.length > 0) {
-                            // has consents display
-                            document.getElementById('loading').classList.add('hidden');
-                            document.getElementById('output').classList.remove('hidden');
-                            for (let i = 0; i < res.Consent.Purposes.length; i++) {
-                                let span = document.createElement("span");
-                                span.classList.add("output-purpose");
-                                span.classList.add("purpose-" + res.Consent.Purposes[i].Consent);
-                                span.id = "purpose-" + [i];
-                                span.innerHTML = "Template: " + res.Consent.Purposes[i].ConsentTemplateId + " purpose " + res.Consent.Purposes[i].PurposeId.toString() + ": " + res.Consent.Purposes[i].Consent;
-                                document.getElementById('output-consents').appendChild(span);
+        // if form is not empty
+        if (consentuaUID && consentuaCID && consentuaSID) {
+            // make api reqests to get consent
+            makeRequest({
+                    method: 'GET',
+                    url: 'https://api.consentua.com/serviceuser/AnonGetServiceUser',
+                    params: {
+                        "serviceId": consentuaSID,
+                        "identifier": consentuaUID
+                    },
+                    headers: {
+                        "Content-type": "application/json"
+                    }
+                })
+                .then(function (res) {
+                    return makeRequest({
+                            method: 'POST',
+                            url: 'https://api.consentua.com/userconsent/AnonGetConsents',
+                            params: {
+                                "ClientId": consentuaCID,
+                                "ServiceId": consentuaSID,
+                                "UserId": JSON.parse(res).UserId
+                            },
+                            headers: {
+                                "Content-type": "application/json"
                             }
-                            document.getElementById('output-consents-raw').innerHTML = JSON.stringify(res, null, 4);
-                        } else {
-                            // shouldn't get here
-                            console.warn(res)
-                        }
-                    });
-            })
-            .catch(function (err) {
-                console.error('Augh, there was an error!', err.statusText);
-            });
-
+                        })
+                        .then(function (res) {
+                            // display consents to user
+                            res = JSON.parse(res);
+                            if (res.Consent == null && res.Success) {
+                                // no consents for user yet
+                                console.warn(res)
+                                document.getElementById('loading').classList.add('hidden');
+                                alert('no consents found for this user')
+                            } else if (res.Consent.Purposes.length > 0) {
+                                // has consents display
+                                document.getElementById('loading').classList.add('hidden');
+                                document.getElementById('output').classList.remove('hidden');
+                                for (let i = 0; i < res.Consent.Purposes.length; i++) {
+                                    let span = document.createElement("span");
+                                    span.classList.add("output-purpose");
+                                    span.classList.add("purpose-" + res.Consent.Purposes[i].Consent);
+                                    span.id = "purpose-" + [i];
+                                    span.innerHTML = "Template: " + res.Consent.Purposes[i].ConsentTemplateId + " purpose " + res.Consent.Purposes[i].PurposeId.toString() + ": " + res.Consent.Purposes[i].Consent;
+                                    document.getElementById('output-consents').appendChild(span);
+                                }
+                                document.getElementById('output-consents-raw').innerHTML = JSON.stringify(res, null, 4);
+                            } else {
+                                // shouldn't get here
+                                document.getElementById('loading').classList.add('hidden');
+                                console.warn(res)
+                            }
+                        });
+                })
+                .catch(function (err) {
+                    document.getElementById('loading').classList.add('hidden');
+                    alert(err.statusText)
+                    console.error('Augh, there was an error!', err.statusText);
+                });
+        } else {
+            document.getElementById('loading').classList.add('hidden');
+            alert('please fill in form')
+        }
     });
 });
